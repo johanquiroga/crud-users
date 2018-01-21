@@ -19,18 +19,24 @@ Route::get('/usuarios', function () {
     return 'Usuarios';
 });
 
-Route::get('/usuarios/{id}', function ($id) {
-    return "Mostrando detalle del usuario: {$id}";
-})->where('id', '\d+');
-
 Route::get('/usuarios/nuevo', function () {
     return 'Crear nuevo usuario';
 });
 
-Route::get('/saludo/{name}/{nickname?}', function ($name, $nickname = null) {
-    if($nickname) {
-        return "Bienvendido {$name}, tu apodo es {$nickname}";
-    }
+Route::get('/usuarios/{id}', function ($id) {
+    return "Mostrando detalle del usuario: {$id}";
+});
 
-    return "Bienvendido {$name}, no tienes apodo";
+Route::get('/usuarios/{id}/edit', function ($id) {
+    return "Editando el usuario: {$id}";
+})->where('id', '\d+');
+
+Route::get('/saludo/{name}/{nickname?}', function ($name, $nickname = null) {
+    $name = ucfirst($name);
+
+    if ($nickname) {
+        return "Bienvendido {$name}, tu apodo es {$nickname}";
+    } else {
+        return "Bienvendido {$name}";
+    }
 });
