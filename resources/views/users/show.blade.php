@@ -1,15 +1,12 @@
 @extends('layout')
 
-@section('title', "Usuario {$id}")
+@section('title', "Usuario {$user->id}")
 
 @section('content')
-    <h1>Mostrando detalle del usuario: {{ $id }}</h1>
+    <h1>Usuario #{{ $user->id }}</h1>
 
     <ul>
-        @forelse ($user as $key => $value)
-            <li><strong>{{ $key }}:</strong> {{ $value }}</li>
-        @empty
-            <li>No existe el usuario</li>
-        @endforelse
+        <li>Nombre del usuario: {{ $user->name }}</li>
+        <li>Correo electrónico: {{ $user->email }}</li>
     </ul>
 @endsection

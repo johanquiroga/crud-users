@@ -19,18 +19,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        if (request()->has('empty')) {
-            $user = [];
-        } else {
-            $user = [
-                'id' => $id,
-                'name' => 'Johan Quiroga',
-                'nickname' => 'johanquiroga',
-                'website' => 'http://johanquiroga.me'
-            ];
-        }
+        $user = User::find($id);
 
-        return view('users.show', compact('user', 'id'));
+        return view('users.show', compact('user'));
     }
 
     public function create()
