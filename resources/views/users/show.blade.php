@@ -2,13 +2,6 @@
 
 @section('title', "Usuario {$id}")
 
-@section('menu-items')
-    @parent
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url('/usuarios') }}">Usuarios nueva</a>
-    </li>
-@endsection
-
 @section('content')
     <h1>Mostrando detalle del usuario: {{ $id }}</h1>
 
