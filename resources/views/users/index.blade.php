@@ -3,7 +3,7 @@
 @section('title', 'Usuarios')
 
 @section('content')
-    <h1>{{ $title }}</h1>
+    <h1 class="text-center">{{ $title }}</h1>
 
     <div class="table-responsive">
         <table class="table table-striped table-sm">

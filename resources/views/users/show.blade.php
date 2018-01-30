@@ -23,6 +23,6 @@
         </table>
     </div>
     <p>
-        <a href="{{ url('/usuarios') }}">Regresar al listado de usuarios</a>
+        <a class="btn btn-primary" href="{{ route('users') }}" role="button">Regresar al listado de usuarios</a>
     </p>
 @endsection

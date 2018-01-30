@@ -75,4 +75,131 @@ class UsersModuleTest extends TestCase
         $this->get('/usuarios/texto/edit')
             ->assertStatus(404);
     }
+
+    /** @test */
+    function it_creates_a_new_user()
+    {
+        $this->withoutExceptionHandling();
+        $this->post('/usuarios', [
+            'name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+            'password' => '123456',
+        ])->assertRedirect(route('users'));
+
+        $this->assertCredentials([
+            'name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+            'password' => '123456',
+        ]);
+    }
+
+    /** @test */
+    function the_name_field_is_required()
+    {
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => '',
+                'email' => 'duilio@styde.net',
+                'password' => '123456',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => 'duilio@styde.net'
+        ]);
+    }
+
+    /** @test */
+    function the_email_field_is_required()
+    {
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => 'Duilio',
+                'email' => '',
+                'password' => '123456',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['email']);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Duilio'
+        ]);
+    }
+
+    /** @test */
+    function the_email_must_be_valid()
+    {
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => 'Duilio',
+                'email' => 'correo-no-valido',
+                'password' => '123456',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['email']);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Duilio',
+            'email' => 'correo-no-valido'
+        ]);
+    }
+
+    /** @test */
+    function the_email_must_be_unique()
+    {
+        factory(User::class)->create([
+            'email' => 'duilio@styde.net'
+        ]);
+
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => 'Duilio',
+                'email' => 'duilio@styde.net',
+                'password' => '123456',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['email']);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Duilio',
+            'email' => 'duilio@styde.net'
+        ]);
+    }
+
+    /** @test */
+    function the_password_field_is_required()
+    {
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => 'Duilio',
+                'email' => 'duilio@styde.net',
+                'password' => '',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['password']);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+        ]);
+    }
+
+    /** @test */
+    function the_password_field_must_have_at_least_6_characters()
+    {
+        $this->from('usuarios/nuevo')
+            ->post('/usuarios', [
+                'name' => 'Duilio',
+                'email' => 'duilio@styde.net',
+                'password' => '123',
+            ])
+            ->assertRedirect('usuarios/nuevo')
+            ->assertSessionHasErrors(['password']);
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+        ]);
+    }
 }
