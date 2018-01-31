@@ -33,6 +33,8 @@ Route::get('/usuarios/{user}/editar', 'UserController@edit')
 
 Route::put('/usuarios/{user}', 'UserController@update')->name('users.update');
 
+Route::delete('/usuarios/{user}', 'UserController@destroy')->name('users.destroy');
+
 Route::get('/saludo/{name}', 'WelcomeUserController@index');
 
 Route::get('/saludo/{name}/{nickname}', 'WelcomeUserController@indexNickname');
