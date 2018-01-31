@@ -22,7 +22,13 @@
             </tbody>
         </table>
     </div>
-    <p>
-        <a class="btn btn-primary" href="{{ route('users') }}" role="button">Regresar al listado de usuarios</a>
-    </p>
+
+    <div class="row">
+        <div class="offset-sm-3 col-sm-3">
+            <a class="btn btn-success" href="{{ route('users.edit', $user) }}" role="button">Editar usuario</a>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary" href="{{ route('users') }}" role="button">Regresar al listado de usuarios</a>
+        </div>
+    </div>
 @endsection
