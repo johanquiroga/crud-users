@@ -25,11 +25,13 @@ Route::get('/usuarios/{user}', 'UserController@show')
 Route::get('/usuarios/nuevo', 'UserController@create')
     ->name('users.create');
 
-Route::post('/usuarios', 'UserController@store');
+Route::post('/usuarios', 'UserController@store')->name('users.store');
 
 Route::get('/usuarios/{user}/editar', 'UserController@edit')
     ->where('user', '[0-9]+')
     ->name('users.edit');
+
+Route::put('/usuarios/{user}', 'UserController@update')->name('users.update');
 
 Route::get('/saludo/{name}', 'WelcomeUserController@index');
 

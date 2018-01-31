@@ -14,7 +14,8 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ url('usuarios') }}">
+    <form method="POST" action="{{ route('users.update', $user) }}">
+        {{ method_field('PUT') }}
         {{ csrf_field() }}
 
         <div class="form-group row">
