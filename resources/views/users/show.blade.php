@@ -16,7 +16,7 @@
                     <td class="text-center">{{ $user->name }}</td>
                 </tr>
                 <tr>
-                    <td class="text-center">E-mail:</td>
+                    <td class="text-center">Correo electrónico:</td>
                     <td class="text-center">{{ $user->email }}</td>
                 </tr>
             </tbody>

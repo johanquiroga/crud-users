@@ -5,14 +5,18 @@
 @section('content')
     <h1 class="text-center">{{ $title }}</h1>
 
+    <p style="float: right">
+        <a class="btn btn-primary" href="{{ route('users.create') }}" role="button">Crear usuario</a>
+    </p>
+
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
                     <th class="text-center">Id</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">E-mail</th>
-                    <th class="text-center">Actions</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Correo electrónico</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
